@@ -68,11 +68,8 @@ export default function Page() {
     setLoading(true);
     setDone(false);
     setError(null);
-
-    // Simulate conversion process
     setTimeout(() => {
       setLoading(false);
-      // Simulate a random failure for better UX feedback
       if (Math.random() < 0.1) {
          setError("Conversion failed. Try a different format or file.");
       } else {
@@ -81,20 +78,15 @@ export default function Page() {
     }, 2500);
   };
 
-  const formatShort = format.split(" ")[0]; // Get the short code for display
+  const formatShort = format.split(" ")[0]; 
 
   return (
-    // Updated background to a very dark, sharp black/zinc
     <main className="min-h-screen bg-zinc-950 flex items-center justify-center px-4 py-16 relative overflow-hidden">
-      {/* Background radial glow effect for a hacker/tech feel (Green/Emerald) */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-lime-500/10 rounded-full blur-3xl opacity-40 animate-pulse-slow"></div>
       <div className="absolute bottom-0 right-0 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl opacity-40 animate-pulse-slow delay-1000"></div>
-
       <div className="w-full max-w-4xl rounded-3xl border border-white/10 bg-white/5 backdrop-blur-2xl shadow-3xl p-12 relative z-10 transition-all duration-500 hover:shadow-lime-500/30">
-
-        {/* Header and Description */}
         <header className="text-center mb-12">
-          {/* Header text gradient updated to a smooth lime/emerald transition */}
+         
           <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-lime-400 to-emerald-400 tracking-tight leading-snug">
             Universal 3D Model Converter
           </h1>
@@ -102,17 +94,11 @@ export default function Page() {
             Seamlessly transform your GLB models into any major 3D format.
           </p>
         </header>
-
-        {/* Main Content Grid */}
         <div className="grid md:grid-cols-2 gap-8">
-          
-          {/* LEFT COLUMN: Upload/File Status */}
           <div className="space-y-6">
             <h2 className="text-2xl font-semibold text-white/90 border-b border-white/10 pb-2">
                 1. Upload Your File
             </h2>
-
-            {/* Upload Area */}
             <div
               onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
               onDragEnter={() => setDragging(true)}
@@ -120,13 +106,13 @@ export default function Page() {
               onDrop={handleDrop}
               className={`relative rounded-xl border-4 p-10 text-center transition-all duration-300 min-h-[180px] flex flex-col justify-center items-center
                 ${dragging
-                  // Drag state uses lime accent
+                 
                   ? "border-lime-400 bg-lime-500/10 shadow-lg shadow-lime-500/20 scale-[1.01]"
                   : "border-white/10 hover:border-lime-500/50 bg-white/5"
                 }
               `}
             >
-              {/* Icon color updated */}
+            
               <UploadCloud className={`h-12 w-12 ${file ? 'text-lime-600' : 'text-lime-400 animate-fadeIn'}`} />
 
               {!file ? (
@@ -161,8 +147,7 @@ export default function Page() {
                 </div>
               )}
             </div>
-            
-            {/* Error Feedback */}
+          
             {error && (
                 <div className="flex items-center gap-2 text-red-400 bg-red-900/20 p-3 rounded-lg">
                     <XCircle size={20} />
@@ -170,14 +155,12 @@ export default function Page() {
                 </div>
             )}
           </div>
-          
-          {/* RIGHT COLUMN: Format Selection & Action */}
+         
           <div className="space-y-6">
             <h2 className="text-2xl font-semibold text-white/90 border-b border-white/10 pb-2">
                 2. Select Output & Convert
             </h2>
 
-            {/* Format Selection */}
             <div>
               <label htmlFor="output-format" className="text-lg text-white/70 block mb-3 font-medium">
                 Target Format
@@ -186,7 +169,7 @@ export default function Page() {
                 id="output-format"
                 value={format}
                 onChange={(e) => setFormat(e.target.value)}
-                // Focus ring updated to green
+            
                 className="w-full rounded-xl bg-black/40 border border-white/10 px-4 py-3 text-white text-lg transition duration-300 focus:ring-2 focus:ring-lime-500 focus:border-lime-500 appearance-none"
               >
                 {formats.map((f) => (
@@ -195,7 +178,6 @@ export default function Page() {
               </select>
             </div>
 
-            {/* Conversion Button */}
             <button
               onClick={handleConvert}
               disabled={!file || loading || done}
@@ -221,9 +203,8 @@ export default function Page() {
               )}
             </button>
             
-            {/* Output/Download Area */}
             {done && (
-              // Success feedback updated to a dark green background with bright lime text
+              
               <div className="p-5 border border-lime-500/50 bg-green-900/30 rounded-xl text-white animate-fadeIn">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
@@ -233,7 +214,7 @@ export default function Page() {
                         </span>
                     </div>
                     <button
-                        // Download button uses a solid green background
+                       
                         className="flex items-center gap-2 bg-lime-600 hover:bg-lime-500 text-black font-bold py-2 px-4 rounded-lg transition duration-300"
                         onClick={() => alert(`Simulating download of ${file!.name.split(".")[0]}.${formatShort.toLowerCase()}`)}
                     >
